@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Velopark — веломаршруты всего мира</title>
+<meta name="description" content="Каталог веломаршрутов мира на карте: 36 маршрутов в 34 странах, от Дуная и Памира до Медеу и Бурабая. Добавляйте свои маршруты и рассказы.">
+<meta name="theme-color" content="#0b6e5a">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Velopark">
+<meta property="og:title" content="Velopark — веломаршруты всего мира"><meta property="og:description" content="Каталог веломаршрутов мира на карте: 36 маршрутов в 34 странах, от Дуная и Памира до Медеу и Бурабая. Добавляйте свои маршруты и рассказы.">
+<meta property="og:image" content="https://avtomaster24bot-lab.github.io/velopark/img/og.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""><link rel="stylesheet" href="css/style.css?v=202610181557">
+</head>
+<body class="home">
+<header class="top"><div class="wrap topin">
+<a class="logo" href="./"><img src="assets/logo.svg" alt="" width="34" height="34"><span>Velo<b>park</b></span></a>
+<nav class="mainnav" id="nav"><a href="routes.html">Маршруты</a><a href="routes.html#map">Карта</a><a href="stories.html">Рассказы</a><a href="add.html" class="cta">+ Добавить</a></nav>
+<div class="topr" id="userbox"><a class="btn btn-sm btn-ghost" href="login.html">Войти</a></div>
+<button class="iconbtn" id="menu" aria-label="Меню">☰</button>
+</div></header>
+<main id="app">
+<section class="hero">
+  <picture><img class="hero-bg" src="img/photos/stelvio-prato-1.webp" alt="" fetchpriority="high"></picture>
+  <div class="hero-in wrap">
+    <p class="eyebrow">Веломаршруты всего мира</p>
+    <h1>Куда поехать на велосипеде?</h1>
+    <p class="lead">Легендарные перевалы, многодневные походы вдоль рек, горы Алматы и озёра Бурабая — на одной карте. Добавляйте свои маршруты и рассказывайте о поездках.</p>
+    <form class="hero-search" action="routes.html" role="search">
+      <input name="q" type="search" placeholder="Страна, город, маршрут: Дунай, Памир, Медеу…" aria-label="Поиск маршрута">
+      <button class="btn">Найти</button>
+    </form>
+    <div class="hero-stats"><span><b id="st-routes">36</b> маршрутов</span><span><b id="st-countries">34</b> стран</span><span><b>7</b> типов поездок</span></div>
+  </div>
+</section>
+<section class="wrap sec">
+  <div class="chips big" id="type-chips"></div>
+</section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Карта маршрутов</h2><a href="routes.html#map">Открыть каталог с фильтрами →</a></div>
+  <div id="home-map" class="map map-home" role="region" aria-label="Карта маршрутов"></div>
+  <p class="hint">Нажмите на линию или точку, чтобы открыть маршрут. Линии схематичные, не для навигации.</p>
+</section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Казахстан</h2><a href="routes.html?country=Казахстан">Все маршруты Казахстана →</a></div>
+  <div class="cards" id="kz"></div>
+</section>
+<section class="wrap sec"><div class="ad-slot" data-ad="wide"></div></section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Легендарные подъёмы</h2><a href="routes.html?type=road">Все шоссейные →</a></div>
+  <div class="cards" id="climbs"></div>
+</section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Большие путешествия</h2><a href="routes.html?type=bikepacking">Байкпакинг и туринг →</a></div>
+  <div class="cards" id="epic"></div>
+</section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Для всей семьи</h2><a href="routes.html?type=family">Все семейные →</a></div>
+  <div class="cards" id="family"></div>
+</section>
+<section class="wrap sec" id="community">
+  <div class="sec-h"><h2>Маршруты и рассказы велосипедистов</h2><a href="stories.html">Все рассказы →</a></div>
+  <div class="cards" id="ugc"></div>
+</section>
+<section class="wrap sec">
+  <div class="cta-band">
+    <div><h2>Знаете хороший маршрут?</h2><p>Загрузите GPX с велокомпьютера или нарисуйте линию на карте, добавьте фото и советы. После проверки модератором маршрут появится в каталоге.</p></div>
+    <div class="cta-btns"><a class="btn btn-lg" href="add.html">Добавить маршрут</a><a class="btn btn-lg btn-ghost" href="add.html?tab=story">Рассказать о поездке</a></div>
+  </div>
+</section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Перед поездкой</h2><a href="https://avtomaster24bot-lab.github.io/velo-universe/">Вело-вселенная →</a></div>
+  <div class="prep">
+    <a href="https://avtomaster24bot-lab.github.io/velo-universe/guides/m-check/"><b>М-проверка</b><span>5 минут перед каждой поездкой</span></a>
+    <a href="https://avtomaster24bot-lab.github.io/velo-universe/guides/puncture-patch/"><b>Прокол в дороге</b><span>Заклеить камеру без мастерской</span></a>
+    <a href="https://avtomaster24bot-lab.github.io/velo-universe/guides/tubeless-plug/"><b>Бескамерка</b><span>Ремонт жгутом за минуту</span></a>
+    <a href="https://avtomaster24bot-lab.github.io/velo-universe/trouble/"><b>Что случилось?</b><span>Поиск неисправности по симптому</span></a>
+    <a href="https://avtomaster24bot-lab.github.io/velo-universe/maintenance/"><b>Чек-лист ТО</b><span>Распечатать и взять с собой</span></a>
+    <a href="https://avtomaster24bot-lab.github.io/velo-universe/calc/"><b>Калькуляторы</b><span>Передачи, давление, велокомпьютер</span></a>
+  </div>
+</section>
+
+</main>
+<footer class="foot"><div class="wrap">
+<div class="fgrid">
+<div><a class="logo" href="./"><img src="assets/logo.svg" alt="" width="30" height="30"><span>Velo<b>park</b></span></a>
+<p>Веломаршруты всего мира: каталог, карта, рассказы и маршруты от велосипедистов. Каждая публикация проходит модерацию.</p></div>
+<div><b>Разделы</b><a href="routes.html">Все маршруты</a><a href="stories.html">Рассказы</a><a href="add.html">Добавить маршрут</a><a href="my.html">Мой кабинет</a></div>
+<div><b>Информация</b><a href="rules.html">Правила и данные</a><a href="credits.html">Фото и источники</a><a href="advertise.html">Реклама на сайте</a></div>
+<div><b>Наши проекты</b><a href="https://avtomaster24bot-lab.github.io/velomarket/">VeloMarket — объявления</a><a href="https://avtomaster24bot-lab.github.io/velo-universe/">Вело-вселенная — веломастерская</a><a href="https://avtomaster24bot-lab.github.io/velopark-panasonic/">Velopark.kz — японские велосипеды</a></div>
+</div>
+<p class="small">Линии маршрутов — схематичные, не для навигации. Картографические данные © участники <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL); профиль высот — Copernicus DEM через <a href="https://open-meteo.com/">Open-Meteo</a> (CC BY 4.0). Фото — Wikimedia Commons, авторы указаны на странице <a href="credits.html">«Фото и источники»</a>.</p>
+</div></footer>
+<div id="toast" class="toast" hidden></div>
+<script type="module" src="js/pages/home.js?v=202610181557"></script>
+</body>
+</html>

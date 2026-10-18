@@ -1,0 +1,6 @@
+shots/
+cache/*
+!cache/geo/
+!cache/picks.json
+__pycache__/
+*.log

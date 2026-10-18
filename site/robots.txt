@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /admin.html
+Sitemap: https://avtomaster24bot-lab.github.io/velopark/sitemap.xml

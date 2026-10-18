@@ -1,0 +1,47 @@
+<div class="wrap narrow">
+  <div class="page-h"><h1>Добавить на Velopark</h1><p class="muted">Каждая публикация проверяется модератором — обычно в течение суток. Не указывайте телефон и другие личные данные в тексте.</p></div>
+  <div id="add-notice"></div>
+  <div class="tabs" role="tablist"><button role="tab" class="tab on" data-tab="route">Маршрут</button><button role="tab" class="tab" data-tab="story">Рассказ</button></div>
+  <form id="f-route" class="panel form" novalidate>
+    <h2>1. Линия маршрута</h2>
+    <div class="geo-tabs"><button type="button" class="btn btn-sm" data-geo="gpx">Загрузить GPX</button><button type="button" class="btn btn-sm btn-ghost" data-geo="draw">Нарисовать на карте</button></div>
+    <div id="geo-gpx" class="geo-pane"><label class="drop">Перетащите сюда файл .gpx или нажмите, чтобы выбрать<input type="file" id="gpx" accept=".gpx,application/gpx+xml,application/xml,text/xml"></label>
+      <p class="hint">Файл обрабатывается прямо в браузере: линия упрощается до 2 000 точек, считаются длина и набор высоты (если в GPX есть высоты).</p></div>
+    <div id="geo-draw" class="geo-pane" hidden><p class="hint">Нажимайте на карту, чтобы ставить точки по порядку. «По дорогам» подстроит линию под дороги OpenStreetMap; высоты возьмём из модели рельефа.</p>
+      <div class="draw-bar"><button type="button" class="btn btn-sm btn-ghost" id="d-undo">↶ Отменить точку</button><button type="button" class="btn btn-sm btn-ghost" id="d-clear">Очистить</button><label class="chk"><input type="checkbox" id="d-snap" checked> По дорогам</label></div></div>
+    <div id="add-map" class="map map-add"></div>
+    <div class="geo-stats" id="geo-stats"></div>
+    <div id="add-profile"></div>
+    <h2>2. О маршруте</h2>
+    <label class="fl">Название*<input name="title" required minlength="3" maxlength="120" placeholder="Например: Кольцо вокруг Капчагая"></label>
+    <fieldset class="fl"><legend>Тип* (до 4)</legend><div class="chips" id="a-types"></div></fieldset>
+    <div class="row2">
+      <label class="fl">Сложность*<select name="difficulty"><option value="easy">Лёгкий</option><option value="medium" selected>Средний</option><option value="hard">Сложный</option><option value="extreme">Экстремальный</option></select></label>
+      <label class="fl">Покрытие<select name="surface"><option value="asphalt">Асфальт</option><option value="gravel">Гравий</option><option value="dirt">Грунт, тропы</option><option value="mixed" selected>Смешанное</option></select></label>
+    </div>
+    <div class="row2">
+      <label class="fl">Страна*<select name="country" required></select></label>
+      <label class="fl">Регион, город<input name="region" maxlength="120" placeholder="Алматинская область"></label>
+    </div>
+    <fieldset class="fl"><legend>Лучший сезон</legend><div class="chips months" id="a-months"></div></fieldset>
+    <label class="fl">Описание*<textarea name="description" required minlength="20" maxlength="8000" rows="7" placeholder="Откуда старт, куда едем, какая дорога, где вода и еда, чем интересен маршрут"></textarea></label>
+    <label class="fl">Что посмотреть<textarea name="highlights" maxlength="2000" rows="3" placeholder="По одному месту в строке"></textarea></label>
+    <label class="fl">Советы<textarea name="tips" maxlength="4000" rows="3" placeholder="Что взять, где опасно, какой велосипед лучше"></textarea></label>
+    <h2>3. Фото</h2>
+    <label class="drop">До 8 фото — уменьшатся в браузере перед загрузкой<input type="file" id="r-photos" accept="image/*" multiple></label>
+    <div class="thumbs" id="r-thumbs"></div>
+    <label class="chk agree"><input type="checkbox" name="agree" required> <span>Я автор фото и текста (или имею право их публиковать) и согласен с <a href="rules.html" target="_blank">правилами</a>. Личные данные, которые я укажу в тексте, публикую на свой страх и риск.</span></label>
+    <button class="btn btn-lg" id="r-submit">Отправить на модерацию</button>
+    <p class="form-msg" id="r-msg"></p>
+  </form>
+  <form id="f-story" class="panel form" hidden novalidate>
+    <label class="fl">Заголовок*<input name="title" required minlength="3" maxlength="140" placeholder="Как мы ехали на Кольсай"></label>
+    <label class="fl">О каком маршруте<select name="route_ref"><option value="">— Без привязки к маршруту —</option></select></label>
+    <label class="fl">Рассказ* (от 50 знаков)<textarea name="body" required minlength="50" maxlength="20000" rows="12" placeholder="Когда ехали, на чём, сколько дней, что понравилось, что было трудно, что пригодилось"></textarea></label>
+    <label class="drop">До 6 фото<input type="file" id="s-photos" accept="image/*" multiple></label>
+    <div class="thumbs" id="s-thumbs"></div>
+    <label class="chk agree"><input type="checkbox" name="agree" required> <span>Я автор рассказа и фото и согласен с <a href="rules.html" target="_blank">правилами</a>.</span></label>
+    <button class="btn btn-lg" id="s-submit">Отправить на модерацию</button>
+    <p class="form-msg" id="s-msg"></p>
+  </form>
+</div>

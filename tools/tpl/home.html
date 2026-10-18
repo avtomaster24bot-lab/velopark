@@ -1,0 +1,59 @@
+<section class="hero">
+  <picture><img class="hero-bg" src="img/photos/stelvio-prato-1.webp" alt="" fetchpriority="high"></picture>
+  <div class="hero-in wrap">
+    <p class="eyebrow">Веломаршруты всего мира</p>
+    <h1>Куда поехать на велосипеде?</h1>
+    <p class="lead">Легендарные перевалы, многодневные походы вдоль рек, горы Алматы и озёра Бурабая — на одной карте. Добавляйте свои маршруты и рассказывайте о поездках.</p>
+    <form class="hero-search" action="routes.html" role="search">
+      <input name="q" type="search" placeholder="Страна, город, маршрут: Дунай, Памир, Медеу…" aria-label="Поиск маршрута">
+      <button class="btn">Найти</button>
+    </form>
+    <div class="hero-stats"><span><b id="st-routes">{{N_ROUTES}}</b> маршрутов</span><span><b id="st-countries">{{N_COUNTRIES}}</b> стран</span><span><b>7</b> типов поездок</span></div>
+  </div>
+</section>
+<section class="wrap sec">
+  <div class="chips big" id="type-chips"></div>
+</section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Карта маршрутов</h2><a href="routes.html#map">Открыть каталог с фильтрами →</a></div>
+  <div id="home-map" class="map map-home" role="region" aria-label="Карта маршрутов"></div>
+  <p class="hint">Нажмите на линию или точку, чтобы открыть маршрут. Линии схематичные, не для навигации.</p>
+</section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Казахстан</h2><a href="routes.html?country=Казахстан">Все маршруты Казахстана →</a></div>
+  <div class="cards" id="kz"></div>
+</section>
+<section class="wrap sec"><div class="ad-slot" data-ad="wide"></div></section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Легендарные подъёмы</h2><a href="routes.html?type=road">Все шоссейные →</a></div>
+  <div class="cards" id="climbs"></div>
+</section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Большие путешествия</h2><a href="routes.html?type=bikepacking">Байкпакинг и туринг →</a></div>
+  <div class="cards" id="epic"></div>
+</section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Для всей семьи</h2><a href="routes.html?type=family">Все семейные →</a></div>
+  <div class="cards" id="family"></div>
+</section>
+<section class="wrap sec" id="community">
+  <div class="sec-h"><h2>Маршруты и рассказы велосипедистов</h2><a href="stories.html">Все рассказы →</a></div>
+  <div class="cards" id="ugc"></div>
+</section>
+<section class="wrap sec">
+  <div class="cta-band">
+    <div><h2>Знаете хороший маршрут?</h2><p>Загрузите GPX с велокомпьютера или нарисуйте линию на карте, добавьте фото и советы. После проверки модератором маршрут появится в каталоге.</p></div>
+    <div class="cta-btns"><a class="btn btn-lg" href="add.html">Добавить маршрут</a><a class="btn btn-lg btn-ghost" href="add.html?tab=story">Рассказать о поездке</a></div>
+  </div>
+</section>
+<section class="wrap sec">
+  <div class="sec-h"><h2>Перед поездкой</h2><a href="{{VU}}">Вело-вселенная →</a></div>
+  <div class="prep">
+    <a href="{{VU}}guides/m-check/"><b>М-проверка</b><span>5 минут перед каждой поездкой</span></a>
+    <a href="{{VU}}guides/puncture-patch/"><b>Прокол в дороге</b><span>Заклеить камеру без мастерской</span></a>
+    <a href="{{VU}}guides/tubeless-plug/"><b>Бескамерка</b><span>Ремонт жгутом за минуту</span></a>
+    <a href="{{VU}}trouble/"><b>Что случилось?</b><span>Поиск неисправности по симптому</span></a>
+    <a href="{{VU}}maintenance/"><b>Чек-лист ТО</b><span>Распечатать и взять с собой</span></a>
+    <a href="{{VU}}calc/"><b>Калькуляторы</b><span>Передачи, давление, велокомпьютер</span></a>
+  </div>
+</section>

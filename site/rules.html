@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Правила и персональные данные — Velopark</title>
+<meta name="description" content="Правила публикации маршрутов и рассказов, модерация, персональные данные.">
+<meta name="theme-color" content="#0b6e5a">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Velopark">
+<meta property="og:title" content="Правила и персональные данные — Velopark"><meta property="og:description" content="Правила публикации маршрутов и рассказов, модерация, персональные данные.">
+<meta property="og:image" content="https://avtomaster24bot-lab.github.io/velopark/img/og.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=202610181557">
+</head>
+<body class="rules">
+<header class="top"><div class="wrap topin">
+<a class="logo" href="./"><img src="assets/logo.svg" alt="" width="34" height="34"><span>Velo<b>park</b></span></a>
+<nav class="mainnav" id="nav"><a href="routes.html">Маршруты</a><a href="routes.html#map">Карта</a><a href="stories.html">Рассказы</a><a href="add.html" class="cta">+ Добавить</a></nav>
+<div class="topr" id="userbox"><a class="btn btn-sm btn-ghost" href="login.html">Войти</a></div>
+<button class="iconbtn" id="menu" aria-label="Меню">☰</button>
+</div></header>
+<main id="app">
+<div class="wrap narrow prose">
+<h1>Правила Velopark и персональные данные</h1>
+<h2>✅ Что можно публиковать</h2>
+<ul>
+<li>Маршруты, которые вы проехали сами или хорошо знаете: линия (GPX или нарисованная на карте), описание, советы, ваши фото.</li>
+<li>Рассказы о поездках — с привязкой к маршруту или без неё.</li>
+<li>Фото и тексты только свои или такие, на которые у вас есть право (например, свободная лицензия с указанием автора).</li>
+</ul>
+<h2>🚫 Что запрещено</h2>
+<ul>
+<li>Чужие фото и тексты без разрешения, копии статей с других сайтов.</li>
+<li>Маршруты через закрытые и охраняемые территории, военные и пограничные зоны без разрешения, призывы нарушать ПДД и правила нацпарков.</li>
+<li>Реклама без согласования, спам, ссылки на сомнительные сайты, оскорбления.</li>
+<li>Чужие персональные данные: телефоны, адреса, фото людей крупным планом без их согласия.</li>
+</ul>
+<h2>🛡 Модерация</h2>
+<ul>
+<li>Каждая публикация сначала получает статус «На модерации» и видна только вам и модератору. Если всё в порядке — она публикуется, если нет — вы увидите причину отказа в <a href="my.html">кабинете</a> и сможете исправить.</li>
+<li>После любого изменения опубликованного маршрута или рассказа он снова уходит на модерацию.</li>
+<li>Комментарии публикуются сразу; модератор скрывает нарушающие правила. Нажмите «Пожаловаться», если что-то не так.</li>
+<li>Повторные нарушения — блокировка аккаунта.</li>
+</ul>
+<h2>⚠️ Безопасность и ответственность</h2>
+<ul>
+<li>Линии маршрутов на сайте — <b>схематичные и не предназначены для навигации</b>. Описания, расстояния и высоты приблизительные. Перед поездкой проверьте дороги, погоду, правила нацпарков и пограничных зон по официальным источникам.</li>
+<li>Вы едете на свой страх и риск: оценивайте свои силы, исправность велосипеда и снаряжение. Подготовка велосипеда — в <a href="https://avtomaster24bot-lab.github.io/velo-universe/guides/m-check/">Вело-вселенной</a>.</li>
+<li>Автор отвечает за достоверность своей публикации и за права на фото и текст.</li>
+<li>Если вы сами укажете в тексте или на фото телефон, адрес, документы или другие личные данные, вы публикуете их добровольно и сами отвечаете за эту информацию. Мы такие данные не запрашиваем и не проверяем, а при модерации можем их удалить.</li>
+</ul>
+<h2 id="data">🔒 Какие данные мы храним</h2>
+<ul>
+<li>При входе через Telegram мы получаем и сохраняем только ваш <b>Telegram ID, имя и username</b>. Фамилию и фото профиля, которые Telegram тоже передаёт, сайт сразу отбрасывает и не хранит. Аккаунт общий с <a href="https://avtomaster24bot-lab.github.io/velomarket/">VeloMarket</a>.</li>
+<li>Номер телефона мы не получаем и не храним. Если Telegram попросит телефон для подтверждения входа, вы вводите его только на странице самого Telegram (oauth.telegram.org) — сайту он не передаётся.</li>
+<li>Рядом с публикацией показывается только ваше имя из Telegram.</li>
+<li>Маршруты, рассказы, фото и исходные GPX-файлы хранятся в сервисе Supabase. GPX-файл видят только автор и модератор; на сайте показывается упрощённая линия.</li>
+<li>Если в GPX есть точное место вашего дома (старт у подъезда), обрежьте начало трека перед загрузкой.</li>
+<li>Удалить аккаунт и все данные: <a class="js-support" href="#">напишите в поддержку</a>. Свои маршруты и рассказы вы можете удалить сами в <a href="my.html">кабинете</a>.</li>
+</ul>
+<p><a class="btn" href="add.html">Добавить маршрут</a></p>
+</div>
+
+</main>
+<footer class="foot"><div class="wrap">
+<div class="fgrid">
+<div><a class="logo" href="./"><img src="assets/logo.svg" alt="" width="30" height="30"><span>Velo<b>park</b></span></a>
+<p>Веломаршруты всего мира: каталог, карта, рассказы и маршруты от велосипедистов. Каждая публикация проходит модерацию.</p></div>
+<div><b>Разделы</b><a href="routes.html">Все маршруты</a><a href="stories.html">Рассказы</a><a href="add.html">Добавить маршрут</a><a href="my.html">Мой кабинет</a></div>
+<div><b>Информация</b><a href="rules.html">Правила и данные</a><a href="credits.html">Фото и источники</a><a href="advertise.html">Реклама на сайте</a></div>
+<div><b>Наши проекты</b><a href="https://avtomaster24bot-lab.github.io/velomarket/">VeloMarket — объявления</a><a href="https://avtomaster24bot-lab.github.io/velo-universe/">Вело-вселенная — веломастерская</a><a href="https://avtomaster24bot-lab.github.io/velopark-panasonic/">Velopark.kz — японские велосипеды</a></div>
+</div>
+<p class="small">Линии маршрутов — схематичные, не для навигации. Картографические данные © участники <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL); профиль высот — Copernicus DEM через <a href="https://open-meteo.com/">Open-Meteo</a> (CC BY 4.0). Фото — Wikimedia Commons, авторы указаны на странице <a href="credits.html">«Фото и источники»</a>.</p>
+</div></footer>
+<div id="toast" class="toast" hidden></div>
+<script type="module" src="js/pages/static.js?v=202610181557"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Мой кабинет — Velopark</title>
+<meta name="description" content="Мои маршруты, рассказы и избранное.">
+<meta name="theme-color" content="#0b6e5a">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Velopark">
+<meta property="og:title" content="Мой кабинет — Velopark"><meta property="og:description" content="Мои маршруты, рассказы и избранное.">
+<meta property="og:image" content="https://avtomaster24bot-lab.github.io/velopark/img/og.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=202610181557">
+</head>
+<body class="mypage">
+<header class="top"><div class="wrap topin">
+<a class="logo" href="./"><img src="assets/logo.svg" alt="" width="34" height="34"><span>Velo<b>park</b></span></a>
+<nav class="mainnav" id="nav"><a href="routes.html">Маршруты</a><a href="routes.html#map">Карта</a><a href="stories.html">Рассказы</a><a href="add.html" class="cta">+ Добавить</a></nav>
+<div class="topr" id="userbox"><a class="btn btn-sm btn-ghost" href="login.html">Войти</a></div>
+<button class="iconbtn" id="menu" aria-label="Меню">☰</button>
+</div></header>
+<main id="app">
+<div class="wrap">
+  <div class="page-h"><h1>Мой кабинет</h1><p class="muted" id="me-line"></p></div>
+  <div class="tabs"><button class="tab on" data-tab="pubs">Мои публикации</button><button class="tab" data-tab="fav">Избранное</button></div>
+  <div id="pane-pubs"></div>
+  <div id="pane-fav" hidden></div>
+</div>
+
+</main>
+<footer class="foot"><div class="wrap">
+<div class="fgrid">
+<div><a class="logo" href="./"><img src="assets/logo.svg" alt="" width="30" height="30"><span>Velo<b>park</b></span></a>
+<p>Веломаршруты всего мира: каталог, карта, рассказы и маршруты от велосипедистов. Каждая публикация проходит модерацию.</p></div>
+<div><b>Разделы</b><a href="routes.html">Все маршруты</a><a href="stories.html">Рассказы</a><a href="add.html">Добавить маршрут</a><a href="my.html">Мой кабинет</a></div>
+<div><b>Информация</b><a href="rules.html">Правила и данные</a><a href="credits.html">Фото и источники</a><a href="advertise.html">Реклама на сайте</a></div>
+<div><b>Наши проекты</b><a href="https://avtomaster24bot-lab.github.io/velomarket/">VeloMarket — объявления</a><a href="https://avtomaster24bot-lab.github.io/velo-universe/">Вело-вселенная — веломастерская</a><a href="https://avtomaster24bot-lab.github.io/velopark-panasonic/">Velopark.kz — японские велосипеды</a></div>
+</div>
+<p class="small">Линии маршрутов — схематичные, не для навигации. Картографические данные © участники <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL); профиль высот — Copernicus DEM через <a href="https://open-meteo.com/">Open-Meteo</a> (CC BY 4.0). Фото — Wikimedia Commons, авторы указаны на странице <a href="credits.html">«Фото и источники»</a>.</p>
+</div></footer>
+<div id="toast" class="toast" hidden></div>
+<script type="module" src="js/pages/my.js?v=202610181557"></script>
+</body>
+</html>
