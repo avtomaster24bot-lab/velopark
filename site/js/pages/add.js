@@ -5,6 +5,7 @@ import { makeMap } from '../map.js';
 import { parseGPX, simplify, statsFromPts, profileFromPts, demElevations, snapToRoads } from '../gpx.js';
 import { renderProfile } from '../chart.js';
 import { compressImage } from '../image.js';
+import { checkSub, allowed, showGate, gateNoteHTML, bindGateNote } from '../membership.js';
 const me = await layout();
 const P = params();
 // ---------------------------------------------------------------- вкладки
@@ -20,7 +21,19 @@ if (!api.READY) {
   canSubmit = false;
   $('#add-notice').innerHTML = `<div class="note">🔑 <span>Чтобы отправить маршрут или рассказ, <a href="${loginUrl()}"><b>войдите через Telegram</b></a> — это быстро, без телефона и паролей.</span></div>`;
 } else if (me.is_banned) { canSubmit = false; $('#add-notice').innerHTML = '<div class="note">⛔ Аккаунт заблокирован.</div>'; }
-for (const b of [$('#r-submit'), $('#s-submit')]) if (!canSubmit) { b.disabled = true; b.title = 'Сначала войдите'; }
+// вход в Velopark — только для подписчиков Telegram-канала (смотреть и пробовать форму можно всем)
+let subBlocked = false;
+if (canSubmit) {
+  const sub = await checkSub(me);
+  if (!allowed(sub)) {
+    canSubmit = false; subBlocked = true;
+    $('#add-notice').innerHTML = gateNoteHTML('Подпишитесь — и сможете отправлять маршруты и рассказы. Форму можно заполнять уже сейчас.');
+    const unlock = () => { canSubmit = true; subBlocked = false; $('#add-notice').innerHTML = ''; for (const b of [$('#r-submit'), $('#s-submit')]) { b.disabled = false; b.title = ''; } };
+    bindGateNote($('#add-notice'), me, unlock);
+    showGate(me).then((ok) => ok && unlock());
+  }
+}
+for (const b of [$('#r-submit'), $('#s-submit')]) if (!canSubmit) { b.disabled = true; b.title = subBlocked ? 'Только для подписчиков канала' : 'Сначала войдите'; }
 // ---------------------------------------------------------------- поля
 const fr = $('#f-route'), fs = $('#f-story');
 const types = new Set(); const months = new Set();
@@ -109,7 +122,7 @@ const sPhotos = photoPicker($('#s-photos'), $('#s-thumbs'), CONFIG.MAX_STORY_PHO
 const msg = (el, t, ok) => { el.textContent = t; el.className = 'form-msg ' + (ok ? 'ok' : 'err'); };
 fr.onsubmit = async (e) => {
   e.preventDefault(); const m = $('#r-msg');
-  if (!canSubmit) return msg(m, api.READY ? 'Сначала войдите через Telegram' : 'Публикация ещё не включена');
+  if (!canSubmit) return msg(m, subBlocked ? 'Только для подписчиков канала @velopark_kz' : api.READY ? 'Сначала войдите через Telegram' : 'Публикация ещё не включена');
   if (!geom || geom.length < 2) return msg(m, 'Добавьте линию маршрута: GPX или нарисуйте на карте');
   if (fr.title.value.trim().length < 3) return msg(m, 'Укажите название');
   if (!types.size) return msg(m, 'Выберите хотя бы один тип');
@@ -134,7 +147,7 @@ fs.route_ref.innerHTML += all.slice().sort((a, b) => a.title.localeCompare(b.tit
 if (P.route) fs.route_ref.value = P.route;
 fs.onsubmit = async (e) => {
   e.preventDefault(); const m = $('#s-msg');
-  if (!canSubmit) return msg(m, api.READY ? 'Сначала войдите через Telegram' : 'Публикация ещё не включена');
+  if (!canSubmit) return msg(m, subBlocked ? 'Только для подписчиков канала @velopark_kz' : api.READY ? 'Сначала войдите через Telegram' : 'Публикация ещё не включена');
   if (fs.title.value.trim().length < 3) return msg(m, 'Укажите заголовок');
   if (fs.body.value.trim().length < 50) return msg(m, 'Рассказ — хотя бы 50 знаков');
   if (!fs.agree.checked) return msg(m, 'Подтвердите согласие с правилами');

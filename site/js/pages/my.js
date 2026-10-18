@@ -1,5 +1,6 @@
 import * as api from '../api.js';
 import { $, $$, layout, esc, card, bindFav, toast, fmtDate, loginUrl } from '../ui.js';
+import { checkSub, allowed, forgetSub, gateNoteHTML, bindGateNote } from '../membership.js';
 const me = await layout();
 const ST = { pending: 'На модерации', approved: 'Опубликовано', rejected: 'Отклонено', hidden: 'Скрыто' };
 $$('.tab').forEach((b) => (b.onclick = () => { $$('.tab').forEach((x) => x.classList.toggle('on', x === b)); $('#pane-pubs').hidden = b.dataset.tab !== 'pubs'; $('#pane-fav').hidden = b.dataset.tab !== 'fav'; }));
@@ -14,7 +15,13 @@ if (!me) {
   $('#pane-pubs').innerHTML = `<div class="empty">Чтобы добавлять маршруты и рассказы, <a href="${loginUrl()}">войдите через Telegram</a>.</div>`;
 } else {
   $('#me-line').innerHTML = `${esc(me.first_name || '')} · <button class="btn btn-sm btn-ghost" id="logout">Выйти</button>`;
-  $('#logout').onclick = async () => { await api.logout(); location.href = './'; };
+  $('#logout').onclick = async () => { forgetSub(); await api.logout(); location.href = './'; };
+  // подписка на канал — условие публикации
+  const sub = await checkSub(me);
+  if (!allowed(sub)) {
+    $('#pane-pubs').insertAdjacentHTML('beforebegin', `<div id="my-gate">${gateNoteHTML('Подпишитесь, чтобы добавлять маршруты, рассказы и комментарии.')}</div>`);
+    bindGateNote($('#my-gate'), me, () => location.reload());
+  }
   if (!api.READY) $('#pane-pubs').innerHTML = '<div class="empty">Публикации появятся, когда администратор подключит базу Velopark.</div>';
   else {
     const { routes, stories } = await api.mine();

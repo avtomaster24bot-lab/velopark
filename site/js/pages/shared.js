@@ -1,9 +1,13 @@
 import * as api from '../api.js';
 import { $, esc, toast, fmtDate, loginUrl } from '../ui.js';
+import { checkSub, allowed, requireSub, gateNoteHTML, bindGateNote } from '../membership.js';
 const REASONS = { wrong: 'Неверная или устаревшая информация', danger: 'Опасно, закрыто, запрещено', spam: 'Спам или реклама', rude: 'Оскорбления', copyright: 'Чужие фото или текст', personal: 'Личные данные', other: 'Другое' };
 export function reportDialog(target, me) {
   if (!api.READY) { toast('Жалобы заработают после настройки базы. Пока можно написать в поддержку.'); return; }
   if (!me) { location.href = loginUrl(); return; }
+  requireSub(me).then((ok) => ok && openReport(target));
+}
+function openReport(target) {
   const d = document.createElement('dialog'); d.className = 'panel';
   d.innerHTML = `<form method="dialog" class="form"><h3>Пожаловаться</h3>${Object.entries(REASONS).map(([k, v], i) => `<label class="chk"><input type="radio" name="reason" value="${k}" ${i ? '' : 'checked'}> ${v}</label>`).join('')}
     <label class="fl" style="margin-top:10px">Комментарий<textarea name="comment" maxlength="1000" rows="3"></textarea></label>
@@ -16,9 +20,11 @@ export function reportDialog(target, me) {
 }
 export async function commentsBlock(el, target, me) {
   if (!api.READY) return;
-  const list = await api.comments(target);
+  const [list, sub] = await Promise.all([api.comments(target), me ? checkSub(me) : null]);
+  const canPost = me && allowed(sub);
   el.innerHTML = `<div class="comments"><h2>Комментарии <span class="muted">${list.length || ''}</span></h2><div id="clist">${list.map(row).join('') || '<p class="muted" id="c-empty">Комментариев пока нет.</p>'}</div>
-    ${me ? `<form class="cform" id="cform"><textarea name="body" maxlength="2000" placeholder="Вопрос или совет по маршруту" required minlength="2"></textarea><button class="btn">Отправить</button></form><p class="hint">Не пишите телефон и личные данные. Комментарии видны всем.</p>` : `<p><a href="${loginUrl()}">Войдите через Telegram</a>, чтобы оставить комментарий.</p>`}</div>`;
+    ${me && !canPost ? `<div id="c-gate">${gateNoteHTML('Комментировать могут только подписчики нашего Telegram-канала.')}</div>` : ''}${canPost ? `<form class="cform" id="cform"><textarea name="body" maxlength="2000" placeholder="Вопрос или совет по маршруту" required minlength="2"></textarea><button class="btn">Отправить</button></form><p class="hint">Не пишите телефон и личные данные. Комментарии видны всем.</p>` : me ? '' : `<p><a href="${loginUrl()}">Войдите через Telegram</a>, чтобы оставить комментарий.</p>`}</div>`;
+  if (me && !canPost) bindGateNote(el.querySelector('#c-gate'), me, () => location.reload());
   function row(c) {
     return `<div class="cmt" data-id="${c.id}"><b>${esc(c.author_name || 'Велосипедист')}</b><time>${fmtDate(c.created_at)}</time>${c.status === 'hidden' ? ' <span class="badge st-hidden">скрыт</span>' : ''}<p>${esc(c.body)}</p>
       ${me && c.user_id === me.id ? '<button class="lnk" data-del>Удалить</button>' : me ? '<button class="lnk" data-rep>Пожаловаться</button>' : ''}</div>`;
