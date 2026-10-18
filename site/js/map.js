@@ -19,5 +19,20 @@ export async function makeMap(el, opts = {}) {
   map.attributionControl.setPrefix('<a href="https://leafletjs.com">Leaflet</a>');
   // колесо мыши — только после клика по карте (чтобы не мешать прокрутке страницы)
   if (!opts.scroll) { map.once('focus', () => map.scrollWheelZoom.enable()); el.addEventListener('click', () => map.scrollWheelZoom.enable(), { once: true }); }
+  if (opts.guard !== false && matchMedia('(pointer: coarse)').matches) touchGuard(L, map, el);
   return { L, map };
+}
+// Сенсорные экраны: пока карта не активирована, она не двигается и не мешает листать страницу.
+function touchGuard(L, map, el) {
+  map.dragging.disable(); map.touchZoom.disable(); map.doubleClickZoom.disable(); if (map.tap) map.tap.disable();
+  el.style.touchAction = 'pan-y';
+  const ov = document.createElement('button'); ov.type = 'button'; ov.className = 'map-guard'; ov.innerHTML = '<span>👆 Нажмите, чтобы двигать карту</span>';
+  const done = document.createElement('button'); done.type = 'button'; done.className = 'map-done'; done.textContent = 'Готово ✓'; done.hidden = true;
+  el.append(ov, done);
+  const on = () => { map.dragging.enable(); map.touchZoom.enable(); map.doubleClickZoom.enable(); if (map.tap) map.tap.enable(); el.style.touchAction = 'none'; ov.hidden = true; done.hidden = false; };
+  const off = () => { map.dragging.disable(); map.touchZoom.disable(); map.doubleClickZoom.disable(); if (map.tap) map.tap.disable(); el.style.touchAction = 'pan-y'; ov.hidden = false; done.hidden = true; };
+  L.DomEvent.disableClickPropagation(ov); L.DomEvent.disableClickPropagation(done);
+  ov.addEventListener('click', on); done.addEventListener('click', off);
+  // ушли с карты (прокрутили страницу дальше) — снова выключаем
+  new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting) off(); }), { threshold: 0.15 }).observe(el);
 }

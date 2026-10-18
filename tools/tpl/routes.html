@@ -2,7 +2,9 @@
   <div class="page-h"><h1>Веломаршруты мира</h1><p class="muted" id="count-line">Загрузка…</p></div>
 </div>
 <div class="wrap catalog-grid">
-  <aside class="filters" id="filters">
+  <div class="f-back" id="f-back" hidden></div>
+  <aside class="filters" id="filters" aria-label="Фильтры">
+    <div class="f-head only-m"><b>Фильтры</b><button type="button" class="iconbtn" id="f-close" aria-label="Закрыть фильтры">✕</button></div>
     <form id="ff" autocomplete="off">
       <label class="fl">Поиск<input name="q" type="search" placeholder="Название, место"></label>
       <label class="fl">Страна<select name="country"><option value="">Все страны</option></select></label>
@@ -15,9 +17,10 @@
       <label class="fl">Сортировка<select name="sort"><option value="">Сначала популярные</option><option value="dist_asc">Короткие</option><option value="dist_desc">Длинные</option><option value="name">По названию</option><option value="new">Новые от пользователей</option></select></label>
       <button type="button" class="btn btn-ghost btn-sm" id="f-reset">Сбросить фильтры</button>
     </form>
+    <div class="f-foot only-m"><button type="button" class="btn btn-ghost" id="f-reset2">Сбросить</button><button type="button" class="btn" id="f-apply">Показать</button></div>
   </aside>
   <section>
-    <div class="viewbar"><button class="btn btn-sm" id="v-map" aria-pressed="true">🗺 Карта</button><button class="btn btn-sm btn-ghost" id="v-list" aria-pressed="false">☰ Только список</button><button class="btn btn-sm btn-ghost only-m" id="f-open">Фильтры</button></div>
+    <div class="viewbar"><button class="btn btn-sm" id="v-map" aria-pressed="true">🗺 Карта</button><button class="btn btn-sm btn-ghost" id="v-list" aria-pressed="false">☰ Только список</button><button class="btn btn-sm btn-ghost only-m" id="f-open" aria-controls="filters" aria-expanded="false">Фильтры</button></div>
     <div id="map" class="map map-cat" role="region" aria-label="Карта маршрутов"></div>
     <div class="cards" id="list"></div>
     <p class="empty" id="empty" hidden>Ничего не найдено. Попробуйте убрать часть фильтров — или <a href="add.html">добавьте свой маршрут</a>.</p>

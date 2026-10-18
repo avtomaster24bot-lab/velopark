@@ -59,6 +59,7 @@ function fillAds() { $$('.ad-slot[data-ad]').forEach((s) => { if (!s.innerHTML.t
 // ---------------------------------------------------------------- шапка
 export async function layout() {
   $('#menu')?.addEventListener('click', () => $('#nav').classList.toggle('open'));
+  $$('#nav a').forEach((a) => a.addEventListener('click', () => $('#nav').classList.remove('open')));
   $$('.js-order-ad').forEach((a) => { a.href = tgLink(CONFIG.AD_ORDER_TEXT); a.target = '_blank'; a.rel = 'noopener'; });
   $$('.js-support').forEach((a) => { a.href = tgLink(CONFIG.SUPPORT_TEXT); a.target = '_blank'; a.rel = 'noopener'; });
   fillAds();

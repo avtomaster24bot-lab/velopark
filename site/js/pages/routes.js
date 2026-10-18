@@ -19,7 +19,19 @@ $('#f-types').addEventListener('click', (e) => { const b = e.target.closest('[da
 $('#f-diff').addEventListener('click', (e) => { const b = e.target.closest('[data-diff]'); if (!b) return; diffs.has(b.dataset.diff) ? diffs.delete(b.dataset.diff) : diffs.add(b.dataset.diff); sync(); run(); });
 f.addEventListener('input', () => run()); f.addEventListener('submit', (e) => e.preventDefault());
 $('#f-reset').onclick = () => { f.reset(); types.clear(); diffs.clear(); sync(); run(); };
-$('#f-open').onclick = () => { $('#filters').classList.toggle('open'); $('#f-open').textContent = $('#filters').classList.contains('open') ? 'Показать результаты' : 'Фильтры'; };
+// мобильная шторка фильтров: своя прокрутка, страница под ней заблокирована только пока шторка открыта
+const sheet = $('#filters'), back = $('#f-back');
+const setSheet = (open) => {
+  sheet.classList.toggle('open', open); back.hidden = !open;
+  document.documentElement.classList.toggle('lock', open); $('#f-open').setAttribute('aria-expanded', open);
+};
+$('#f-open').onclick = () => setSheet(true);
+$('#f-close').onclick = $('#f-apply').onclick = back.onclick = () => { setSheet(false); $('#count-line').scrollIntoView({ block: 'start' }); };
+$('#f-reset2').onclick = () => $('#f-reset').click();
+addEventListener('keydown', (e) => { if (e.key === 'Escape') setSheet(false); });
+matchMedia('(min-width: 901px)').addEventListener('change', (e) => { if (e.matches) setSheet(false); });
+addEventListener('pageshow', () => setSheet(false));
+const activeCount = () => types.size + diffs.size + ['q', 'country', 'dist', 'gain', 'surface', 'month'].filter((k) => f[k].value).length;
 const range = (v) => { if (!v) return null; const [a, b] = v.split('-'); return [a ? +a : -Infinity, b ? +b : Infinity]; };
 const norm = (s) => s.toLowerCase().replace(/ё/g, 'е');
 function filter() {
@@ -51,6 +63,8 @@ function run() {
   const list = filter();
   const word = (n) => (n % 10 === 1 && n % 100 !== 11 ? 'маршрут' : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? 'маршрута' : 'маршрутов');
   $('#count-line').textContent = `${list.length} ${word(list.length)}${list.length !== all.length ? ` из ${all.length}` : ''} · ${countries.length} стран`;
+  const nAct = activeCount(); $('#f-open').textContent = nAct ? `Фильтры (${nAct})` : 'Фильтры';
+  $('#f-apply').textContent = list.length ? `Показать ${list.length} ${word(list.length)}` : 'Ничего не найдено';
   const html = list.map((r) => card(r, fav));
   if (html.length > 6) html.splice(6, 0, `<div class="ad-card">${adHTML('wide')}</div>`);
   $('#list').innerHTML = html.join(''); $('#empty').hidden = !!list.length;

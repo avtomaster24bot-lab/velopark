@@ -75,7 +75,19 @@ textarea{resize:vertical}
 .viewbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}.only-m{display:none}
 .empty{padding:30px;text-align:center;color:var(--ink2);background:#fff;border-radius:var(--r)}
 @media(max-width:900px){.catalog-grid{grid-template-columns:1fr}.only-m{display:inline-flex}
-.filters{display:none;position:fixed;inset:62px 0 0 0;z-index:1100;max-height:none;border-radius:0}.filters.open{display:block}.map-cat{height:340px}}
+.filters{display:none;position:fixed;left:0;right:0;bottom:0;top:auto;z-index:1300;max-height:86vh;max-height:86dvh;border-radius:18px 18px 0 0;padding:0;flex-direction:column;overflow:hidden;box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+.filters.open{display:flex}.filters form{overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:6px 16px 16px;flex:1;min-height:0}
+.f-head{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 8px 16px;border-bottom:1px solid var(--line)}.f-head b{font-size:17px}
+.f-foot{display:flex;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fff}.f-foot .btn{flex:1;justify-content:center}.f-foot #f-apply{flex:2}
+.f-back{position:fixed;inset:0;background:rgba(10,30,25,.45);z-index:1250}
+.filters #f-reset{display:none}.map-cat{height:300px}.map-home{height:320px}.map-route{height:300px}}
+html.lock,html.lock body{overflow:hidden}
+.f-head,.f-foot{display:none}
+@media(max-width:900px){.filters .f-head,.filters .f-foot{display:flex}}
+.map-guard{position:absolute;inset:0;z-index:800;display:flex;align-items:flex-end;justify-content:center;padding-bottom:14px;background:transparent;border:0;cursor:pointer;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.map-guard[hidden],.map-done[hidden]{display:none}
+.map-guard span{background:rgba(16,40,34,.78);color:#fff;font:600 13px/1 Manrope,sans-serif;padding:9px 14px;border-radius:999px}
+.map-done{position:absolute;left:50%;transform:translateX(-50%);bottom:12px;z-index:800;background:#0b6e5a;color:#fff;border:0;border-radius:999px;padding:9px 16px;font:700 13px Manrope,sans-serif;box-shadow:var(--sh)}
 /* route page */
 .r-head{padding:20px 0 6px}.r-head .crumbs{font-size:14px;color:var(--mute)}.r-head .crumbs a{color:var(--mute)}
 .r-badges{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}.r-badges .badge{background:#fff;box-shadow:inset 0 0 0 1.5px var(--line)}
