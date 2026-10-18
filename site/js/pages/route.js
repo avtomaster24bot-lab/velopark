@@ -44,7 +44,7 @@ async function render() {
     <div class="stat"><small>Покрытие</small><b>${SURF[r.surface] || '—'}</b></div>
     <div class="stat"><small>Сезон</small><b>${seasonText(r.season)}</b></div></div>
   <div id="rmap" class="map map-route"></div>
-  <div class="note">⚠️ <span>${r.osm ? `Линия — из OpenStreetMap (<a href="https://www.openstreetmap.org/relation/${r.osm}" target="_blank" rel="noopener">отношение ${r.osm}</a>), упрощена. Данные © участники OpenStreetMap, ODbL.` : r.ugc ? 'Линия упрощена по треку автора.' : 'Схематичная линия через известные опорные точки'+(r.line_mode === 'line' ? ' (прямыми отрезками)' : ', проложенная по дорогам OpenStreetMap')+'.'} Не для навигации: перед поездкой сверяйтесь с официальными картами и треками.</span></div>
+  <div class="note">⚠️ <span>${r.osm ? `Линия — из OpenStreetMap (<a href="https://www.openstreetmap.org/relation/${r.osm}" target="_blank" rel="noopener">отношение ${r.osm}</a>), упрощена. Данные © участники OpenStreetMap, ODbL.` : r.ugc ? 'Линия упрощена по треку автора.' : r.line_src ? r.line_src : 'Схематичная линия через известные опорные точки'+(r.line_mode === 'line' ? ' (прямыми отрезками)' : ', проложенная по дорогам OpenStreetMap')+'.'} Не для навигации: перед поездкой сверяйтесь с официальными картами и треками.</span></div>
   <div id="prof"></div>
   <div class="r-grid" style="margin-top:22px"><div>
     <section class="prose">${(r.desc || []).map((p) => `<p>${esc(p)}</p>`).join('')}

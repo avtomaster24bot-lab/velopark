@@ -35,7 +35,7 @@ for rt in routes.R:
     # обзорная линия для общей карты (≤ 60 точек)
     step = max(1, len(line) // 60); ov = line[::step] + ([line[-1]] if line[::step][-1] != line[-1] else [])
     dist = rt.get('dist'); dist_est = round(g['len_km']) if g['len_km'] >= 20 else round(g['len_km'], 1)
-    show_profile = mode == 'bike' or (mode == 'mixed' and g.get('routed', 0) >= 0.85)
+    show_profile = mode in ('bike', 'track') or (mode == 'mixed' and g.get('routed', 0) >= 0.85)
     item = dict(id=rt['slug'], title=rt['title'], countries=rt['countries'], region=rt['region'], types=rt['types'], diff=rt['diff'],
                 surface=rt['surface'], season=rt['season'], dist=dist if dist else dist_est, dist_est=not bool(dist),
                 gain=rt.get('gain'), ele_max=round(g['ele_max']) if show_profile else None,
@@ -46,7 +46,7 @@ for rt in routes.R:
     index.append(item)
     full = dict(item, desc=rt['desc'], highlights=rt['highlights'], tips=rt['tips'], dist_note=rt['dist_note'], gain_note=rt.get('gain_note'),
                 src=[dict(t=a, url=b) for a, b in rt['src']], wp=[dict(lat=a, lon=b, t=c) for a, b, c in rt['wp']],
-                line=line, line_mode=mode, line_km=g['len_km'], profile=g['profile'] if show_profile else None,
+                line=line, line_mode=mode, line_src=rt.get('line_src'), line_km=g['len_km'], profile=g['profile'] if show_profile else None,
                 ele_min=round(g['ele_min']) if show_profile else None, gain_model=g['gain_model'] if show_profile else None,
                 photos=[dict(p, author=cred[p['k']]['author'], license=cred[p['k']]['license'], source=cred[p['k']]['source']) for p in photos],
                 guides=guides)

@@ -46,9 +46,12 @@ def build(rt, force=False):
     wp = [(a, b) for a, b, _ in rt['wp']]; mode = rt.get('mode', 'bike'); note = ''
     pts = None
     routed_share = 0
+    if rt.get('track'):
+        pts = [tuple(x) for x in json.load(open(rt['track']))]; mode = 'track'; routed_share = 1
+    prof0 = rt.get('prof', 'bike')
     if mode == 'bike':
         try:
-            pts = osrm(wp); straight = length(wp)
+            pts = osrm(wp, prof0); straight = length(wp)
             off = rt.get('dist')
             if off and 0.6*off <= length(pts) <= 1.6*off: pass
             elif length(pts) > max(2.2*straight, straight + 10): note = 'osrm-long'; pts = None
@@ -59,7 +62,7 @@ def build(rt, force=False):
             for i in range(len(wp)-1):
                 a, b = wp[i], wp[i+1]; st = hav(a, b); seg = None
                 try:
-                    seg = osrm([a, b])
+                    seg = osrm([a, b], prof0)
                     if length(seg) > max(2.2*st, st + 10): seg = None
                 except Exception: seg = None
                 if not seg and rt.get('car_ok', True):
