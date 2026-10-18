@@ -83,11 +83,22 @@ export async function logout() {
 
 // ------------------------------------------------------------------ каталог (статический)
 let idxP = null;
-export function seedIndex() { if (!idxP) idxP = fetch('data/index.json').then((r) => r.json()); return idxP; }
+// osmSummary — короткое описание для маршрутов из OpenStreetMap (в индексе его нет, чтобы файл был легче)
+export const osmSummary = (r) => `Маршрут из OpenStreetMap · ${r.region}${r.district && r.district !== r.region ? ', ' + r.district : ''}`;
+const getJSON = (u) => fetch(u).then((r) => (r.ok ? r.json() : []));
+// Каталог: курируемые маршруты + маршруты OSM по странам (отдельные лёгкие файлы)
+export function seedIndex() {
+  if (!idxP) idxP = Promise.all([getJSON('data/index.json'), getJSON('data/osm/idx-kz.json'), getJSON('data/osm/idx-ru.json'), getJSON('data/osm/idx-crimea.json')])
+    .then(([a, ...osm]) => [...a, ...osm.flat().map((r) => ({ ...r, summary: osmSummary(r), season: r.season || [], dist_est: !!r.dist_est }))]);
+  return idxP;
+}
 export async function seedRoute(slug) {
   if (!/^[a-z0-9-]{2,60}$/.test(slug)) return null;
-  const r = await fetch(`data/r/${slug}.json`); return r.ok ? r.json() : null;
+  const u = slug.startsWith('osm-') ? `data/osm/r/${slug}.json` : `data/r/${slug}.json`;
+  const r = await fetch(u); if (!r.ok) return null;
+  const j = await r.json(); if (j.osm) j.summary = j.summary || osmSummary(j); return j;
 }
+export const regionData = (code) => (/^(KZ-\d{2}|RU-[A-Z]{2,3}|CRIMEA)$/.test(code) ? fetch(`data/reg/${code}.json`).then((r) => (r.ok ? r.json() : null)) : Promise.resolve(null));
 export const seedPhoto = (k, small) => `img/photos/${k}${small ? '-s' : ''}.webp`;
 
 // ------------------------------------------------------------------ маршруты пользователей

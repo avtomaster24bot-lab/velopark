@@ -65,8 +65,9 @@ export function profileFromPts(pts, n = 300) {
 }
 export function toGPX(name, line, note) {
   const esc = (s) => String(s).replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Velopark" xmlns="http://www.topografix.com/GPX/1/1">\n<metadata><name>${esc(name)}</name><desc>${esc(note)}</desc></metadata>\n<trk><name>${esc(name)}</name><trkseg>\n` +
-    line.map((p) => `<trkpt lat="${p[0]}" lon="${p[1]}"/>`).join('\n') + '\n</trkseg></trk>\n</gpx>\n';
+  const segs = Array.isArray(line[0]?.[0]) ? line : [line]; // одна линия или несколько участков
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Velopark" xmlns="http://www.topografix.com/GPX/1/1">\n<metadata><name>${esc(name)}</name><desc>${esc(note)}</desc></metadata>\n<trk><name>${esc(name)}</name>` +
+    segs.map((sg) => '<trkseg>\n' + sg.map((p) => `<trkpt lat="${p[0]}" lon="${p[1]}"/>`).join('\n') + '\n</trkseg>').join('') + '</trk>\n</gpx>\n';
 }
 // Высоты по модели рельефа (Open-Meteo, Copernicus DEM) для нарисованной линии
 export async function demElevations(pts, n = 100) {

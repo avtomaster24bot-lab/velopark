@@ -9,6 +9,21 @@ export function loadLeaflet() {
   });
   return LP;
 }
+let CP = null;
+// Кластеры маркеров (Leaflet.markercluster) — для больших наборов точек
+export function loadCluster() {
+  if (window.L && window.L.markerClusterGroup) return Promise.resolve(window.L);
+  if (!CP) CP = loadLeaflet().then((L) => new Promise((res) => {
+    for (const h of ['MarkerCluster.css', 'MarkerCluster.Default.css']) { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = `https://unpkg.com/leaflet.markercluster@1.5.3/dist/${h}`; document.head.append(l); }
+    const s = document.createElement('script'); s.src = 'https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js';
+    s.onload = () => res(L); s.onerror = () => res(L); document.head.append(s);
+  }));
+  return CP;
+}
+export async function clusterGroup(L) {
+  await loadCluster();
+  return L.markerClusterGroup ? L.markerClusterGroup({ showCoverageOnHover: false, maxClusterRadius: 45, spiderfyOnMaxZoom: true, chunkedLoading: true }) : L.featureGroup();
+}
 export async function makeMap(el, opts = {}) {
   const L = await loadLeaflet();
   const map = L.map(el, { worldCopyJump: true, scrollWheelZoom: opts.scroll ?? false, zoomControl: true, attributionControl: true, minZoom: 2, ...opts });

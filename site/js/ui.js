@@ -7,8 +7,8 @@ export const params = () => Object.fromEntries(new URLSearchParams(location.sear
 export const TYPES = { road: 'Шоссе', mtb: 'MTB', gravel: 'Гравий', city: 'Город', touring: 'Туринг', bikepacking: 'Байкпакинг', family: 'Семейный' };
 export const TYPE_ICON = { road: '🚴', mtb: '🚵', gravel: '🪨', city: '🏙', touring: '🧳', bikepacking: '⛺', family: '👨‍👩‍👧' };
 export const TYPE_COLOR = { road: '#d9480f', mtb: '#7b2cbf', gravel: '#a0522d', city: '#1971c2', touring: '#0b6e5a', bikepacking: '#2b8a3e', family: '#e6a700' };
-export const DIFF = { easy: 'Лёгкий', medium: 'Средний', hard: 'Сложный', extreme: 'Экстрим' };
-export const SURF = { asphalt: 'Асфальт', gravel: 'Гравий', dirt: 'Грунт, тропы', mixed: 'Смешанное' };
+export const DIFF = { easy: 'Лёгкий', medium: 'Средний', hard: 'Сложный', extreme: 'Экстрим', na: 'Не указана' };
+export const SURF = { asphalt: 'Асфальт', gravel: 'Гравий', dirt: 'Грунт, тропы', mixed: 'Смешанное', na: 'Нет данных' };
 export const MONTHS = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
 export const MONTHS_FULL = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
 export const COUNTRIES = ['Казахстан', 'Россия', 'Кыргызстан', 'Узбекистан', 'Таджикистан', 'Туркменистан', 'Беларусь', 'Армения', 'Грузия', 'Азербайджан', 'Монголия', 'Китай',
@@ -28,14 +28,14 @@ export function seasonText(s) {
   return s.map((x) => MONTHS[x - 1]).join(', ');
 }
 let tmr; export function toast(msg, kind) { const t = $('#toast'); if (!t) return; t.textContent = msg; t.className = 'toast' + (kind ? ' ' + kind : ''); t.hidden = false; clearTimeout(tmr); tmr = setTimeout(() => (t.hidden = true), 3800); }
-export function coverOf(r, small = true) { return r.coverUrl || (r.cover ? api.seedPhoto(r.cover, small) : 'assets/placeholder.svg'); }
+export function coverOf(r, small = true) { return r.coverUrl || (r.cover ? api.seedPhoto(r.cover, small) : `assets/ph/${(r.types || [])[0] || 'touring'}.svg`); }
 export function card(r, fav) {
   const href = `route.html?id=${encodeURIComponent(r.id)}`;
   const km = r.dist != null ? `≈ ${fmtKm(r.dist)} км` : '';
   return `<a class="card" href="${href}"><div class="ph"><img src="${esc(coverOf(r))}" alt="" loading="lazy">
-    <span class="tag badge d-${r.diff}">${DIFF[r.diff] || ''}</span>${r.ugc ? '<span class="ugc badge">от пользователя</span>' : ''}
+    ${r.diff && r.diff !== 'na' ? `<span class="tag badge d-${r.diff}">${DIFF[r.diff] || ''}</span>` : ''}${r.ugc ? '<span class="ugc badge">от пользователя</span>' : r.osm ? '<span class="ugc badge osm">OSM</span>' : ''}
     ${fav ? `<button class="fav${fav.has(r.id) ? ' on' : ''}" data-fav="${esc(r.id)}" aria-label="В избранное" title="В избранное">${fav.has(r.id) ? '♥' : '♡'}</button>` : ''}</div>
-    <div class="bd"><h3>${esc(r.title)}</h3><div class="meta"><span>📍 ${esc(r.countries.join(', '))}</span>${km ? `<span>↔ ${km}</span>` : ''}${r.gain ? `<span>⛰ ≈ ${fmtM(r.gain)} м</span>` : ''}</div>
+    <div class="bd"><h3>${esc(r.title)}</h3><div class="meta"><span>📍 ${esc(r.rname || (r.osm ? r.region : '') || r.countries.join(', '))}</span>${km ? `<span>↔ ${km}</span>` : ''}${r.gain ? `<span>⛰ ≈ ${fmtM(r.gain)} м</span>` : ''}</div>
     <p class="sum">${esc(r.summary)}</p><div class="meta">${r.types.map((t) => `<span><i class="dot" style="background:${TYPE_COLOR[t]}"></i> ${TYPES[t]}</span>`).join('')}</div></div></a>`;
 }
 export function bindFav(root, fav) {

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Регион — Velopark</title>
+<meta name="description" content="Веломаршруты региона на карте и списком.">
+<meta name="theme-color" content="#0b6e5a">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Velopark">
+<meta property="og:title" content="Регион — Velopark"><meta property="og:description" content="Веломаршруты региона на карте и списком.">
+<meta property="og:image" content="https://avtomaster24bot-lab.github.io/velopark/img/og.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""><link rel="stylesheet" href="css/style.css?v=202610181707">
+</head>
+<body class="regionpage">
+<header class="top"><div class="wrap topin">
+<a class="logo" href="./"><img src="assets/logo.svg" alt="" width="34" height="34"><span>Velo<b>park</b></span></a>
+<nav class="mainnav" id="nav"><a href="routes.html">Маршруты</a><a href="regions.html">Регионы</a><a href="stories.html">Рассказы</a><a href="add.html" class="cta">+ Добавить</a></nav>
+<div class="topr" id="userbox"><a class="btn btn-sm btn-ghost" href="login.html">Войти</a></div>
+<button class="iconbtn" id="menu" aria-label="Меню">☰</button>
+</div></header>
+<main id="app">
+<div class="wrap">
+  <div class="crumbs"><a href="./">Главная</a> › <a href="regions.html">Регионы</a> › <span id="crumb-fd"></span></div>
+  <div class="page-h"><h1 id="reg-title">Регион</h1><p class="muted" id="reg-sub">Загрузка…</p></div>
+  <div class="viewbar" id="reg-types"></div>
+  <div id="rmap" class="map map-cat" role="region" aria-label="Карта маршрутов региона"></div>
+  <div class="cards" id="list"></div>
+  <p class="empty" id="empty" hidden>В этом регионе пока нет маршрутов. Знаете хороший? <a href="add.html">Добавьте его</a> или внесите в <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a>.</p>
+  <p class="hint" id="reg-note"></p>
+</div>
+
+</main>
+<footer class="foot"><div class="wrap">
+<div class="fgrid">
+<div><a class="logo" href="./"><img src="assets/logo.svg" alt="" width="30" height="30"><span>Velo<b>park</b></span></a>
+<p>Веломаршруты всего мира: каталог, карта, рассказы и маршруты от велосипедистов. Каждая публикация проходит модерацию.</p></div>
+<div><b>Разделы</b><a href="routes.html">Все маршруты</a><a href="regions.html">По регионам</a><a href="stories.html">Рассказы</a><a href="add.html">Добавить маршрут</a><a href="my.html">Мой кабинет</a></div>
+<div><b>Информация</b><a href="rules.html">Правила и данные</a><a href="credits.html">Фото и источники</a><a href="advertise.html">Реклама на сайте</a></div>
+<div><b>Наши проекты</b><a href="https://avtomaster24bot-lab.github.io/velomarket/">VeloMarket — объявления</a><a href="https://avtomaster24bot-lab.github.io/velo-universe/">Вело-вселенная — веломастерская</a><a href="https://avtomaster24bot-lab.github.io/velopark-panasonic/">Velopark.kz — японские велосипеды</a></div>
+</div>
+<p class="small">Линии маршрутов — схематичные, не для навигации. Картографические данные и линии маршрутов из OSM — Данные © участники <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, ODbL; профиль высот — Copernicus DEM через <a href="https://open-meteo.com/">Open-Meteo</a> (CC BY 4.0). Фото — Wikimedia Commons, авторы указаны на странице <a href="credits.html">«Фото и источники»</a>.</p>
+</div></footer>
+<div id="toast" class="toast" hidden></div>
+<script type="module" src="js/pages/region.js?v=202610181707"></script>
+</body>
+</html>

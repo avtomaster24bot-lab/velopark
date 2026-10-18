@@ -12,18 +12,18 @@
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap&subset=cyrillic" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""><link rel="stylesheet" href="css/style.css?v=202610181649">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""><link rel="stylesheet" href="css/style.css?v=202610181707">
 </head>
 <body class="catalog">
 <header class="top"><div class="wrap topin">
 <a class="logo" href="./"><img src="assets/logo.svg" alt="" width="34" height="34"><span>Velo<b>park</b></span></a>
-<nav class="mainnav" id="nav"><a href="routes.html">Маршруты</a><a href="routes.html#map">Карта</a><a href="stories.html">Рассказы</a><a href="add.html" class="cta">+ Добавить</a></nav>
+<nav class="mainnav" id="nav"><a href="routes.html">Маршруты</a><a href="regions.html">Регионы</a><a href="stories.html">Рассказы</a><a href="add.html" class="cta">+ Добавить</a></nav>
 <div class="topr" id="userbox"><a class="btn btn-sm btn-ghost" href="login.html">Войти</a></div>
 <button class="iconbtn" id="menu" aria-label="Меню">☰</button>
 </div></header>
 <main id="app">
 <div class="wrap">
-  <div class="page-h"><h1>Веломаршруты мира</h1><p class="muted" id="count-line">Загрузка…</p></div>
+  <div class="page-h"><h1>Веломаршруты мира</h1><p class="muted" id="count-line">Загрузка…</p><p class="hint"><a href="regions.html">Маршруты по регионам →</a></p></div>
 </div>
 <div class="wrap catalog-grid">
   <div class="f-back" id="f-back" hidden></div>
@@ -32,6 +32,8 @@
     <form id="ff" autocomplete="off">
       <label class="fl">Поиск<input name="q" type="search" placeholder="Название, место"></label>
       <label class="fl">Страна<select name="country"><option value="">Все страны</option></select></label>
+      <label class="fl" id="reg-wrap" hidden>Регион<select name="reg"><option value="">Все регионы</option></select></label>
+      <label class="fl chk"><input type="checkbox" name="osm" value="1"> <span>Только из OpenStreetMap</span></label>
       <fieldset class="fl"><legend>Тип</legend><div class="chips" id="f-types"></div></fieldset>
       <fieldset class="fl"><legend>Сложность</legend><div class="chips" id="f-diff"></div></fieldset>
       <label class="fl">Длина<select name="dist"><option value="">Любая</option><option value="0-30">до 30 км</option><option value="30-100">30–100 км</option><option value="100-500">100–500 км</option><option value="500-1500">500–1 500 км</option><option value="1500-">больше 1 500 км</option></select></label>
@@ -47,6 +49,7 @@
     <div class="viewbar"><button class="btn btn-sm" id="v-map" aria-pressed="true">🗺 Карта</button><button class="btn btn-sm btn-ghost" id="v-list" aria-pressed="false">☰ Только список</button><button class="btn btn-sm btn-ghost only-m" id="f-open" aria-controls="filters" aria-expanded="false">Фильтры</button></div>
     <div id="map" class="map map-cat" role="region" aria-label="Карта маршрутов"></div>
     <div class="cards" id="list"></div>
+    <p style="text-align:center"><button class="btn btn-ghost" id="more" hidden>Показать ещё</button></p>
     <p class="empty" id="empty" hidden>Ничего не найдено. Попробуйте убрать часть фильтров — или <a href="add.html">добавьте свой маршрут</a>.</p>
   </section>
 </div>
@@ -56,13 +59,13 @@
 <div class="fgrid">
 <div><a class="logo" href="./"><img src="assets/logo.svg" alt="" width="30" height="30"><span>Velo<b>park</b></span></a>
 <p>Веломаршруты всего мира: каталог, карта, рассказы и маршруты от велосипедистов. Каждая публикация проходит модерацию.</p></div>
-<div><b>Разделы</b><a href="routes.html">Все маршруты</a><a href="stories.html">Рассказы</a><a href="add.html">Добавить маршрут</a><a href="my.html">Мой кабинет</a></div>
+<div><b>Разделы</b><a href="routes.html">Все маршруты</a><a href="regions.html">По регионам</a><a href="stories.html">Рассказы</a><a href="add.html">Добавить маршрут</a><a href="my.html">Мой кабинет</a></div>
 <div><b>Информация</b><a href="rules.html">Правила и данные</a><a href="credits.html">Фото и источники</a><a href="advertise.html">Реклама на сайте</a></div>
 <div><b>Наши проекты</b><a href="https://avtomaster24bot-lab.github.io/velomarket/">VeloMarket — объявления</a><a href="https://avtomaster24bot-lab.github.io/velo-universe/">Вело-вселенная — веломастерская</a><a href="https://avtomaster24bot-lab.github.io/velopark-panasonic/">Velopark.kz — японские велосипеды</a></div>
 </div>
-<p class="small">Линии маршрутов — схематичные, не для навигации. Картографические данные © участники <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> (ODbL); профиль высот — Copernicus DEM через <a href="https://open-meteo.com/">Open-Meteo</a> (CC BY 4.0). Фото — Wikimedia Commons, авторы указаны на странице <a href="credits.html">«Фото и источники»</a>.</p>
+<p class="small">Линии маршрутов — схематичные, не для навигации. Картографические данные и линии маршрутов из OSM — Данные © участники <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, ODbL; профиль высот — Copernicus DEM через <a href="https://open-meteo.com/">Open-Meteo</a> (CC BY 4.0). Фото — Wikimedia Commons, авторы указаны на странице <a href="credits.html">«Фото и источники»</a>.</p>
 </div></footer>
 <div id="toast" class="toast" hidden></div>
-<script type="module" src="js/pages/routes.js?v=202610181649"></script>
+<script type="module" src="js/pages/routes.js?v=202610181707"></script>
 </body>
 </html>

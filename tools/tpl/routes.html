@@ -1,5 +1,5 @@
 <div class="wrap">
-  <div class="page-h"><h1>Веломаршруты мира</h1><p class="muted" id="count-line">Загрузка…</p></div>
+  <div class="page-h"><h1>Веломаршруты мира</h1><p class="muted" id="count-line">Загрузка…</p><p class="hint"><a href="regions.html">Маршруты по регионам →</a></p></div>
 </div>
 <div class="wrap catalog-grid">
   <div class="f-back" id="f-back" hidden></div>
@@ -8,6 +8,8 @@
     <form id="ff" autocomplete="off">
       <label class="fl">Поиск<input name="q" type="search" placeholder="Название, место"></label>
       <label class="fl">Страна<select name="country"><option value="">Все страны</option></select></label>
+      <label class="fl" id="reg-wrap" hidden>Регион<select name="reg"><option value="">Все регионы</option></select></label>
+      <label class="fl chk"><input type="checkbox" name="osm" value="1"> <span>Только из OpenStreetMap</span></label>
       <fieldset class="fl"><legend>Тип</legend><div class="chips" id="f-types"></div></fieldset>
       <fieldset class="fl"><legend>Сложность</legend><div class="chips" id="f-diff"></div></fieldset>
       <label class="fl">Длина<select name="dist"><option value="">Любая</option><option value="0-30">до 30 км</option><option value="30-100">30–100 км</option><option value="100-500">100–500 км</option><option value="500-1500">500–1 500 км</option><option value="1500-">больше 1 500 км</option></select></label>
@@ -23,6 +25,7 @@
     <div class="viewbar"><button class="btn btn-sm" id="v-map" aria-pressed="true">🗺 Карта</button><button class="btn btn-sm btn-ghost" id="v-list" aria-pressed="false">☰ Только список</button><button class="btn btn-sm btn-ghost only-m" id="f-open" aria-controls="filters" aria-expanded="false">Фильтры</button></div>
     <div id="map" class="map map-cat" role="region" aria-label="Карта маршрутов"></div>
     <div class="cards" id="list"></div>
+    <p style="text-align:center"><button class="btn btn-ghost" id="more" hidden>Показать ещё</button></p>
     <p class="empty" id="empty" hidden>Ничего не найдено. Попробуйте убрать часть фильтров — или <a href="add.html">добавьте свой маршрут</a>.</p>
   </section>
 </div>

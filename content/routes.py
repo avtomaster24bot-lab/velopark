@@ -493,8 +493,8 @@ r(slug='charyn-kolsai', title='Чарын — Сааты — Кольсай', co
 
 r(slug='burabay', title='Бурабай: Щучинск — Боровое — Голубой залив', countries=['Казахстан'], region='Акмолинская область, нацпарк «Бурабай»',
   types=['family','touring','city'], diff='easy', surface='asphalt', season=[5,6,7,8,9],
-  dist=None, dist_note='Расстояние — оценка по схеме', gain=None, gain_note='Холмистые участки между озёрами',
-  src=[('Wikipedia: Бурабай (нацпарк)','https://ru.wikipedia.org/wiki/%D0%91%D1%83%D1%80%D0%B0%D0%B1%D0%B0%D0%B9_(%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BF%D0%B0%D1%80%D0%BA)')],
+  dist=31, dist_note='≈ 31 км — велодорожка от озера Щучье до поляны Абылай-хана вдоль озера Боровое (kurort-borovoe.kz)', gain=None, gain_note='Холмистые участки между озёрами',
+  src=[('Курорт Боровое: прокат велосипедов и велодорожка','https://kurort-borovoe.kz/leisure/%D0%BF%D1%80%D0%BE%D0%BA%D0%B0%D1%82-%D0%B2%D0%B5%D0%BB%D0%BE%D1%81%D0%B8%D0%BF%D0%B5%D0%B4%D0%BE%D0%B2/'),('Wikipedia: Бурабай (нацпарк)','https://ru.wikipedia.org/wiki/%D0%91%D1%83%D1%80%D0%B0%D0%B1%D0%B0%D0%B9_(%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D0%BF%D0%B0%D1%80%D0%BA)')],
   wp=[(52.934,70.189,'Щучинск'),(53.083,70.313,'Посёлок Бурабай'),(53.085,70.245,'Голубой залив, Жумбактас')],
   photo_q=['Burabay lake Zhumbaktas','Burabay National Park','Borovoe Kazakhstan'],
   summary='«Казахстанская Швейцария»: сосновые боры, гранитные скалы и озёра Щучье и Боровое — спокойная поездка для всей семьи.',
@@ -503,3 +503,7 @@ r(slug='burabay', title='Бурабай: Щучинск — Боровое — �
   highlights=['Озеро Щучье','Озеро Боровое (Бурабай)','Скала Жумбактас','Гора Окжетпес','Голубой залив'],
   tips=['На территории нацпарка действуют правила посещения и платный въезд — уточняйте на месте.','В сезон по выходным на дороге много машин.'],
   guides=['m-check','tube-replace'])
+
+# ---------------------------------------------------------------- Казахстан (открытые источники)
+import os as _os  # noqa: E402
+exec(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'routes_kz.py'), encoding='utf-8').read())
